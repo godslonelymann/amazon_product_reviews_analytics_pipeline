@@ -1,0 +1,29 @@
+# Python files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local configuration and credentials
+config.py
+.env
+.env.*
+!.env.example
+.aws/
+credentials
+*_accessKeys.csv
+*_access_keys.csv
+*_credentials.csv
+
+# Spark and operating-system files
+.sparkStaging/
+metastore_db/
+derby.log
+.DS_Store
+
+# Streamlit local secrets must not be committed
+.streamlit/secrets.toml
+
+Appliances.jsonl.gz
+
+meta_Appliances.jsonl.gz

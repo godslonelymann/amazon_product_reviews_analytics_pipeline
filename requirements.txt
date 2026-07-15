@@ -1,0 +1,5 @@
+pyspark
+boto3
+streamlit
+pandas
+altair
