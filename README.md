@@ -37,6 +37,28 @@ crawler to register them in the Data Catalog.
 - Displays overall metrics, rating distribution, leading products, brand
   performance, monthly trends, and price-band analysis in Streamlit.
 
+## Dashboard preview
+
+![Dashboard summary and rating distribution](dashboard/dashboard-ss/img-1.png)
+
+The overview summarizes 2.1 million reviews across 94,327 products and shows that five-star ratings account for the largest share of reviews.
+
+![Top-reviewed products](dashboard/dashboard-ss/img-2.png)
+
+The product ranking highlights the ten appliance products with the highest review counts in the dataset.
+
+![Brand performance](dashboard/dashboard-ss/img-3.png)
+
+The brand view compares review volume with average customer ratings for the 12 highest-volume brands.
+
+![Monthly review trend](dashboard/dashboard-ss/img-4.png)
+
+The monthly trend pairs raw review counts with a three-month rolling average to make long-term changes easier to see.
+
+![Product price versus average rating](dashboard/dashboard-ss/img-5.png)
+
+The price-band analysis compares product coverage and average ratings across seven price ranges.
+
 ## Repository layout
 
 ```text

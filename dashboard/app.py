@@ -188,66 +188,64 @@ def show_dashboard() -> None:
         )
     )
 
-    left, right = st.columns([1, 2])
-    with left:
-        st.subheader("Rating distribution")
-        st.caption("Share of rated reviews at each star level")
-        rating_bars = (
-            alt.Chart(rating_distribution)
-            .mark_bar()
-            .encode(
-                x=alt.X("rating:O", title="Stars", sort=[1, 2, 3, 4, 5]),
-                y=alt.Y(
-                    "review_share:Q",
-                    title="Share of reviews",
-                    axis=alt.Axis(format=".0%"),
+    st.subheader("Rating distribution")
+    st.caption("Share of rated reviews at each star level")
+    rating_bars = (
+        alt.Chart(rating_distribution)
+        .mark_bar()
+        .encode(
+            x=alt.X("rating:O", title="Stars", sort=[1, 2, 3, 4, 5]),
+            y=alt.Y(
+                "review_share:Q",
+                title="Share of reviews",
+                axis=alt.Axis(format=".0%"),
+            ),
+            tooltip=[
+                alt.Tooltip("rating:O", title="Stars"),
+                alt.Tooltip("review_count:Q", title="Reviews", format=","),
+                alt.Tooltip("review_share:Q", title="Share", format=".1%"),
+            ],
+        )
+    )
+    rating_labels = rating_bars.mark_text(dy=-8).encode(
+        text=alt.Text("review_share:Q", format=".1%")
+    )
+    st.altair_chart(
+        (rating_bars + rating_labels).properties(height=310),
+        use_container_width=True,
+    )
+
+    st.subheader("Top-reviewed products")
+    st.caption("Products with the most reviews in this dataset")
+    top_bars = (
+        alt.Chart(top_products)
+        .mark_bar()
+        .encode(
+            x=alt.X("review_count:Q", title="Review count"),
+            y=alt.Y(
+                "product_label:N",
+                title=None,
+                sort=alt.EncodingSortField(
+                    field="review_count", order="descending"
                 ),
-                tooltip=[
-                    alt.Tooltip("rating:O", title="Stars"),
-                    alt.Tooltip("review_count:Q", title="Reviews", format=","),
-                    alt.Tooltip("review_share:Q", title="Share", format=".1%"),
-                ],
-            )
+                axis=alt.Axis(labelLimit=500),
+            ),
+            tooltip=[
+                "product_title",
+                "product_asin",
+                "brand",
+                alt.Tooltip("review_count:Q", format=","),
+                alt.Tooltip("average_review_rating:Q", format=".2f"),
+            ],
         )
-        rating_labels = rating_bars.mark_text(dy=-8).encode(
-            text=alt.Text("review_share:Q", format=".1%")
-        )
-        st.altair_chart(
-            (rating_bars + rating_labels).properties(height=310),
-            use_container_width=True,
-        )
-    with right:
-        st.subheader("Top-reviewed products")
-        st.caption("Products with the most reviews in this dataset")
-        top_bars = (
-            alt.Chart(top_products)
-            .mark_bar()
-            .encode(
-                x=alt.X("review_count:Q", title="Review count"),
-                y=alt.Y(
-                    "product_label:N",
-                    title="Product",
-                    sort=alt.EncodingSortField(
-                        field="review_count", order="descending"
-                    ),
-                    axis=alt.Axis(labelLimit=330),
-                ),
-                tooltip=[
-                    "product_title",
-                    "product_asin",
-                    "brand",
-                    alt.Tooltip("review_count:Q", format=","),
-                    alt.Tooltip("average_review_rating:Q", format=".2f"),
-                ],
-            )
-        )
-        top_labels = top_bars.mark_text(align="left", dx=5).encode(
-            text=alt.Text("review_count:Q", format=",")
-        )
-        st.altair_chart(
-            (top_bars + top_labels).properties(height=310),
-            use_container_width=True,
-        )
+    )
+    top_labels = top_bars.mark_text(align="left", dx=5).encode(
+        text=alt.Text("review_count:Q", format=",")
+    )
+    st.altair_chart(
+        (top_bars + top_labels).properties(height=310),
+        use_container_width=True,
+    )
 
     brand_performance = to_number(
         run_query(
