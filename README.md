@@ -62,6 +62,16 @@ Appliances.jsonl.gz
 meta_Appliances.jsonl.gz
 ```
 
+Download them from the official Amazon Reviews 2023 dataset:
+
+| File | Download |
+|---|---|
+| `Appliances.jsonl.gz` | [Download appliance reviews](https://mcauleylab.ucsd.edu/public_datasets/data/amazon_2023/raw/review_categories/Appliances.jsonl.gz) |
+| `meta_Appliances.jsonl.gz` | [Download appliance metadata](https://mcauleylab.ucsd.edu/public_datasets/data/amazon_2023/raw/meta_categories/meta_Appliances.jsonl.gz) |
+
+The complete dataset catalog is available on the [McAuley Lab Amazon Reviews
+2023 website](https://amazon-reviews-2023.github.io/).
+
 ## Data flow
 
 The Spark job expects this raw S3 layout:
@@ -338,4 +348,3 @@ possible. See [`docs/aws_setup.md`](docs/aws_setup.md) for the detailed list.
 - Never commit `config.py`, `.env` files, access-key exports, or Streamlit secrets.
 - Rotate a credential immediately if it has been exposed.
 - Review and empty Athena result prefixes before sharing or deleting a bucket.
-
